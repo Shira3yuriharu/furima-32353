@@ -26,7 +26,7 @@
 | building_name   | string   |             |
 | phone_number    | string   | null: false |
 ### Association
-- has_one :purchase_record
+- belongs_to :purchase_record
 
 ## items テーブル
 | Column              | Type     | Options     |
@@ -52,4 +52,4 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one :address
