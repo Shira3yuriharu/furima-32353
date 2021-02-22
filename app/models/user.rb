@@ -12,8 +12,8 @@ class User < ApplicationRecord
   validates :firstname_kana, presence: true
   validates :birthday, presence: true
 
-  # VALID_PASSWORD_REGEX = /\A[a-z0-9]+\z/i
-  # validates :password, format: { with: VALID_PASSWORD_REGEX }
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+  validates_format_of :password, with: PASSWORD_REGEX,  message: 'Include both letters and numbers'  
 
   # アソシエーションは他モデルを作成したら記述する？
 end
