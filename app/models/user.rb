@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    # validates :email, uniqueness: true #←validates :email, presence: trueの記述は内部的にされている為
     validates :lastname, format: { with: /\A[ぁ-んァ-ン一-龥々]/, message: "Full-width characters" }
     validates :firstname, format: { with: /\A[ぁ-んァ-ン一-龥々]/, message: "Full-width characters" }
     validates :lastname_kana, format: { with: /\A[ァ-ヶー－]+\z/, message: "Full-width katakana characters" }
@@ -17,5 +16,4 @@ class User < ApplicationRecord
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
   validates_format_of :password, with: PASSWORD_REGEX,  message: 'Include both letters and numbers'  
 
-  # アソシエーションは他モデルを作成したら記述する？
 end
