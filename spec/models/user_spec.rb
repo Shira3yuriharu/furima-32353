@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
-    @user2 = FactoryBot.create(:user)
   end
 
   describe 'ユーザー新規登録' do
@@ -106,6 +105,16 @@ RSpec.describe User, type: :model do
     end
     it '名前（カナ）は全角カタカナ以外では登録できない' do
       @user.firstname_kana = 'AA'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Firstname kana Full-width katakana characters"
+    end
+    it '苗字（カナ）はカタカナ以外の全角文字では登録できない' do
+      @user.lastname_kana = 'ああ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Lastname kana Full-width katakana characters"
+    end
+    it '名前（カナ）はカタカナ以外の全角文字では登録できない' do
+      @user.firstname_kana = 'ああ'
       @user.valid?
       expect(@user.errors.full_messages).to include "Firstname kana Full-width katakana characters"
     end
