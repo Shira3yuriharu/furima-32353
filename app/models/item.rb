@@ -7,11 +7,11 @@ with_options presence: true do
   validates :explain, {length: {maximum: 1000}}
   validates :category_id, numericality: {other_than: 1}
   validates :status_id, numericality: {other_than: 1}
-  validates :method_of_payment_id, numericality: {other_than: 1}  
-  validates :area_id
-  validates :days_required_id 
+  validates :method_of_payment_id, numericality: {other_than: 1}
+  validates :area_id, numericality: {other_than: 1}
+  validates :days_required_id , numericality: {other_than: 1}
   validates :price, format: { with: /\A[0-9]+\z/},inclusion: {in: 300..9999999 }
-  #validates :image, presence: true
+  validates :image
 end
 
   belongs_to :user
@@ -20,5 +20,6 @@ end
   belongs_to :category
   belongs_to :status
   belongs_to :method_of_payment
+  belongs_to :area
   belongs_to :days_required
 end
