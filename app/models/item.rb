@@ -9,8 +9,9 @@ with_options presence: true do
   validates :status_id, numericality: {other_than: 1}
   validates :method_of_payment_id, numericality: {other_than: 1}
   validates :area_id, numericality: {other_than: 1}
-  validates :days_required_id , numericality: {other_than: 1}
-  validates :price, format: { with: /\A[0-9]+\z/},inclusion: {in: 300..9999999 }
+  validates :day_required_id , numericality: {other_than: 1}
+  validates :price, format: { with: /\A[0-9]+\z/}
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
   validates :image
 end
 
@@ -21,5 +22,5 @@ end
   belongs_to :status
   belongs_to :method_of_payment
   belongs_to :area
-  belongs_to :days_required
+  belongs_to :day_required
 end

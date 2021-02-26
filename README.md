@@ -38,7 +38,7 @@
 | status_id           | integer  | null: false |
 | method_of_payment_id| integer  | null: false |
 | area_id             | integer  | null: false |
-| days_required_id    | integer  | null: false |
+| day_required_id    | integer  | null: false |
 | price               | integer  | null: false |
 ### Association
 - belongs_to :user
