@@ -7,7 +7,6 @@ FactoryBot.define do
     method_of_payment_id   { Faker::Number.between(from: 2, to: 3) }
     area_id                { Faker::Number.between(from: 2, to: 48) }
     day_required_id        { Faker::Number.between(from: 2, to: 4) }
-    price              { Faker::Number.between(from: 300, to: 9999999) }
-
+    price { Faker::Number.between(from: 300, to: 9_999_999) }
   end
 end
