@@ -9,7 +9,7 @@ RSpec.describe Item, type: :model do
 
   describe '商品新規登録' do
     # 正常系テスト
-    context "商品新規登録ができる場合" do
+    context '商品新規登録ができる場合' do
       it '全ての値が正しいと登録ができる' do
         @item.valid?
         expect(@item).to be_valid
@@ -17,7 +17,7 @@ RSpec.describe Item, type: :model do
     end
 
     # 異常系テスト
-    context "商品新規登録ができない場合" do
+    context '商品新規登録ができない場合' do
       it '商品画像が空だと登録できない' do
         @item.image = nil
         @item.valid?
@@ -29,7 +29,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Name can't be blank"
       end
       it '商品名は41文字以上だと登録できない' do
-        @item.name = "a" * 41
+        @item.name = 'a' * 41
         @item.valid?
         expect(@item.errors.full_messages).to include 'Name is too long (maximum is 40 characters)'
       end
@@ -39,7 +39,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Explain can't be blank"
       end
       it '商品の説明は1001文字以上だと登録できない' do
-        @item.explain = "a" * 1001
+        @item.explain = 'a' * 1001
         @item.valid?
         expect(@item.errors.full_messages).to include 'Explain is too long (maximum is 1000 characters)'
       end
@@ -104,7 +104,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include 'Price Out of setting range'
       end
       it '10,000,000以上の販売価格は登録できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price Out of setting range'
       end
@@ -119,7 +119,5 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include 'Price Half-width number'
       end
     end
-
   end
-
 end

@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   end
 
   def new
-      @item = Item.new
+    @item = Item.new
   end
 
   def create
@@ -16,6 +16,10 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @item = Item.find(params[:id])
   end
 
   private
