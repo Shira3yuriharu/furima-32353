@@ -26,8 +26,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item.update(item_params)
-    if @item.save
+    if @item.update(item_params)
       redirect_to item_path
     else
       render :edit
@@ -46,7 +45,7 @@ class ItemsController < ApplicationController
   end
   
   def redirect
-    redirect_to new_user_session_path unless @item.user.id == current_user.id
+    redirect_to items_path unless @item.user.id == current_user.id
   end
 
 end
