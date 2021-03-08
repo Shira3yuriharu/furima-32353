@@ -1,3 +1,5 @@
+/* ★モデル（purchase_recordと命名規則を合わせる為、フォルダ名をorders→purchase_recordsに変更） */
+
 .transaction-contents {
   width: 100vw;
   background-color: #f5f5f5;
