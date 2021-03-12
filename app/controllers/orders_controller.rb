@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
 
   def create
     @user_purchase = UserPurchase.new(order_params)
+    @item = Item.find(params[:item_id])
     # binding.pry
      if @user_purchase.valid?
       @user_purchase.save
