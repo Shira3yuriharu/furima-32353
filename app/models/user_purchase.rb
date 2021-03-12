@@ -1,9 +1,11 @@
 class UserPurchase
   include ActiveModel::Model
   # 下記attr_accessorは誰が、いつ、どの商品を購入したかも記録できるようにする？
-  attr_accessor :purchase_record, :post_code, :area_id, :city, :address, :building_name, :phone_number, :user_id, :item_id
+  attr_accessor :purchase_record, :post_code, :area_id, :city, :address, :building_name, :phone_number, :user_id, :item_id, :token
 
   with_options presence: true do
+    validates :user_id
+    validates :item_id
     validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)" }
     validates :city, format: { with: /\A[ぁ-んァ-ン一-龥々]/, message: "is invalid. Input full-width characters." }
     validates :address
