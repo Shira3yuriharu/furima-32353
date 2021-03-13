@@ -13,24 +13,25 @@ class OrdersController < ApplicationController
     # binding.pry
     @user_purchase = UserPurchase.new(user_purchase_params)
     # @item = Item.find(params[:item_id])
-     if @user_purchase.valid?
+    if @user_purchase.valid?
       pay_item
       @user_purchase.save
       redirect_to root_path
-     else
+    else
       render action: :index
-     end
+    end
   end
-
 
   private
 
   def user_purchase_params
-    params.require(:user_purchase).permit(:post_code, :area_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:user_purchase).permit(:post_code, :area_id, :city, :address, :building_name, :phone_number).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: user_purchase_params[:token],
@@ -47,7 +48,6 @@ class OrdersController < ApplicationController
   end
 
   def redirectSold
-    redirect_to items_path if @item.purchase_record != nil
+    redirect_to items_path unless @item.purchase_record.nil?
   end
-    
 end
