@@ -1,6 +1,5 @@
 <%= render "shared/header" %>
 
-<%# 商品の概要 %>
 <div class="item-show">
   <div class="item-box">
     <h2 class="name">
@@ -8,11 +7,11 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <%# 商品が売れている場合は、sold outを表示する %>
-      <div class="sold-out">
-        <span>Sold Out!!</span>
-      </div>
-      <%# //商品が売れている場合は、sold outを表示する %>
+      <% if @item.purchase_record != nil %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
@@ -23,20 +22,15 @@
       </span>
     </div>
 
-    <%# ユーザーがログインしているか確認する %>
-      <% if user_signed_in? %>
-      <%# ログインしている場合 %>
-          <% if current_user.id == @item.user_id %>
-          <%# ログインしているユーザーと、商品を出品したユーザーが同一の場合 %>
-            <%# 商品が出品中の場合%>
-              <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
-              <p class="or-text">or</p>
-              <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
-          <% else %>
-            <%= link_to "購入画面に進む", "#" ,class:"item-red-btn"%>    
-          <% end %>
+    <% if user_signed_in? && @item.purchase_record.nil? %>
+      <% if current_user.id == @item.user_id %>
+          <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
+          <p class="or-text">or</p>
+          <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
+      <% else %>
+        <%= link_to "購入画面に進む", item_orders_path(@item.id) ,class:"item-red-btn"%>
       <% end %>
-    <%# 商品が売れていない場合はこちらを表示しましょう %>
+    <% end %>
 
     <div class="item-explain-box">
       <span><%= @item.explain %></span>
@@ -80,7 +74,6 @@
       </div>
     </div>
   </div>
-  <%# /商品の概要 %>
 
   <div class="comment-box">
     <form>
@@ -104,9 +97,7 @@
       後ろの商品 ＞
     </a>
   </div>
-  <%# 詳細ページで表示されている商品のカテゴリー名を表示する %>
   <a href="#" class="another-item"><%= @item.category.name %>をもっと見る</a>
-  <%# //詳細ページで表示されている商品のカテゴリー名を表示する %>
 </div>
 
 <%= render "shared/footer" %>
