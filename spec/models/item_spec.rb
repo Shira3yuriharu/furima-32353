@@ -4,7 +4,7 @@ RSpec.describe Item, type: :model do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.build(:item, user_id: @user.id)
-    @item.image = fixture_file_upload('spec/fixtures/ルンパッパ.png')
+    # @item.image = fixture_file_upload('spec/fixtures/ルンパッパ.png')
   end
 
   describe '商品新規登録' do
