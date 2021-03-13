@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index]
   before_action :set_item, only: [:index, :create]
-  before_action :redirect, only: [:index]
-  before_action :redirectSold, only: [:index]
+  before_action :redirect, only: [:index, :create]
+  before_action :redirectSold, only: [:index, :create]
 
   def index
     @user_purchase = UserPurchase.new

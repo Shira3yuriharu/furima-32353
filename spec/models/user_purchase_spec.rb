@@ -15,6 +15,11 @@ RSpec.describe UserPurchase, type: :model do
         @user_purchase.valid?
         expect(@user_purchase).to be_valid
       end
+      it '建物名が抜けていても登録できる' do
+        @user_purchase.building_name = ''
+        @user_purchase.valid?
+        expect(@user_purchase).to be_valid
+      end
     end
 
     # 異常系テスト
