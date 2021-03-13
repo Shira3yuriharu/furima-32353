@@ -29,11 +29,14 @@
       <% if user_signed_in? %>
       <%# ログインしている場合 %>
           <% if current_user.id == @item.user_id %>
+            <% if @item.purchase_record != nil %>
+            <% else %>
           <%# ログインしているユーザーと、商品を出品したユーザーが同一の場合 %>
             <%# 商品が出品中の場合%>
               <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
               <p class="or-text">or</p>
               <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
+            <% end %>
           <% else %>
             <% if @item.purchase_record != nil %>
             <% else %>
