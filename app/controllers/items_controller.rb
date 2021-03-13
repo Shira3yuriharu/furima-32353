@@ -2,7 +2,6 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :redirect, only: [:edit, :update, :destroy]
-  before_action :redirectSold, only: [:edit]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -52,13 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def redirect
-    redirect_to items_path unless @item.user.id == current_user.id
-  end
-
-  def redirectSold
-    if @item.purchase_record != nil 
-      redirect_to items_path if @item.user.id == current_user.id
-    end 
+    redirect_to items_path if @item.purchase_record != nil || @item.user.id != current_user.id
   end
 
 end

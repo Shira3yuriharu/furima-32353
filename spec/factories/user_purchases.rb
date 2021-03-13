@@ -6,8 +6,6 @@ FactoryBot.define do
     address          { Gimei.town.kanji + '1-1-1' }
     building_name    { Gimei.town.kanji + 'ビル101号室' }
     phone_number     { "0#{rand(7..9)}0#{rand(1_000_000..99_999_999)}" }
-    # user_id          {Faker::Number.number(digits: 1) }
-    # item_id          {Faker::Number.number(digits: 1) }
     token            { 'tok_abcdefghijk00000000000000000' }
   end
 end
