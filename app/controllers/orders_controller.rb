@@ -1,13 +1,18 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+  before_action :set_item, only: [:index, :creat]
+  before_action :redirect, only: [:index]
+  before_action :redirectSold, only: [:index]
+
   def index
     @user_purchase = UserPurchase.new
-    @item = Item.find(params[:item_id])
+    # @item = Item.find(params[:item_id])
   end
 
   def create
     # binding.pry
     @user_purchase = UserPurchase.new(user_purchase_params)
-    @item = Item.find(params[:item_id])
+    # @item = Item.find(params[:item_id])
      if @user_purchase.valid?
       pay_item
       @user_purchase.save
@@ -21,7 +26,6 @@ class OrdersController < ApplicationController
   private
 
   def user_purchase_params
-    # binding.pry
     params.require(:user_purchase).permit(:post_code, :area_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
@@ -34,4 +38,16 @@ class OrdersController < ApplicationController
     )
   end
 
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def redirect
+    redirect_to items_path if @item.user.id == current_user.id
+  end
+
+  def redirectSold
+    redirect_to items_path if @item.purchase_record != nil
+  end
+    
 end
